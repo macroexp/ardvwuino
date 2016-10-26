@@ -1,5 +1,5 @@
 // CAN Send Example
-//
+// hybridized from a lot of stuff
 
 #include <mcp_can.h>
 #include <SPI.h>
