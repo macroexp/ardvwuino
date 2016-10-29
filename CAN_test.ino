@@ -15,6 +15,11 @@ long unsigned int rxId;
 unsigned char len = 0;
 unsigned char rxBuf[8];
 
+void println(char* msg){
+  Wire.write(msg);
+  Wire.write("\n");
+}
+
 void setup()
 {
   Serial.begin(115200);
@@ -35,10 +40,7 @@ void setup()
   println("6.MAF Sensor");
 }
 
-void println(char* msg){
-  Wire.write(msg);
-  Wire.write("\n");
-}
+
 //byte data[8] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};
 
 void loop() {
