@@ -1,9 +1,11 @@
 // CAN Send Example
 // hybridized from a lot of stuff
 
+#include <Wire.h>
 #include <mcp_can.h>
 #include <SPI.h>
 
+#define SLAVE_ADDRESS 0x2A
 ///#define CAN0_INT 2                              // Set INT to pin 2
 MCP_CAN Canbus(6);     // Set CS to pin 4
 char UserInput;
@@ -16,27 +18,31 @@ unsigned char rxBuf[8];
 void setup()
 {
   Serial.begin(115200);
-
+  Wire.begin(SLAVE_ADDRESS);
   // Initialize MCP2515 running at 16MHz with a baudrate of 500kb/s and the masks and filters disabled.
-  if (Canbus.begin(MCP_ANY, CAN_500KBPS, MCP_8MHZ) == CAN_OK) Serial.println("MCP2515 Initialized Successfully!");
-  else Serial.println("Error Initializing MCP2515...");
+  if (Canbus.begin(MCP_ANY, CAN_500KBPS, MCP_8MHZ) == CAN_OK) println("MCP2515 Initialized Successfully!");
+  else println("Error Initializing MCP2515...");
 
   Canbus.setMode(MCP_NORMAL);   // Change to normal mode to allow messages to be transmitted
   delay(250);
 
-  Serial.println("Please choose a menu option.");
-  Serial.println("1.Speed");
-  Serial.println("2.RPM");
-  Serial.println("3.Throttle");
-  Serial.println("4.Coolant Temperature");
-  Serial.println("5.O2 Voltage");
-  Serial.println("6.MAF Sensor");
+  println("Please choose a menu option.");
+  println("1.Speed");
+  println("2.RPM");
+  println("3.Throttle");
+  println("4.Coolant Temperature");
+  println("5.O2 Voltage");
+  println("6.MAF Sensor");
 }
 
+void println(char* msg){
+  Wire.write(msg);
+  Wire.write("\n");
+}
 //byte data[8] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};
 
 void loop() {
-
+/*
   while (Serial.available()) {
     UserInput = Serial.read();
 
@@ -86,8 +92,7 @@ void loop() {
       /  Serial.println(UserInput);
       /  Serial.println("Not a valid input.");
       /  Serial.println("Please enter a valid option.");
-      }*/
-
+      }
   }
   if (!digitalRead(CAN0_INT))                        // If CAN0_INT pin is low, read receive buffer
   {
@@ -112,6 +117,7 @@ void loop() {
 
     Serial.println();
   }
+  */
 }
   /*
     void poop()

@@ -46,7 +46,7 @@ char MCP_CAN::ecu_req(unsigned char pid,  char *buffer)
     
     if (sendMsgBuf(PID_REQUEST, 8, data) == CAN_OK){
         if (!digitalRead(CAN0_INT)){
-            if (readMsgBuf(&id, &len, data) == CAN_MSGAVAIL){
+            if (readMsgBuf(&id, &len, data) == CAN_OK){
                 switch(data[2]){
                     case ENGINE_RPM:            //   ((A*256)+B)/4    [RPM]
                         engine_data =  ((data[3]*256) + data[4])/4;
