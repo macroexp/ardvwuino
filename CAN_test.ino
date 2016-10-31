@@ -12,7 +12,8 @@ char UserInput;
 char number;
 int data;
 char buffer[BUFSIZE];
-size_t buflast = 0;
+unsigned int buflast = 0;
+unsigned char *buffirst;
 long unsigned int rxId;
 unsigned int len = 0;
 unsigned char rxBuf[8];
@@ -34,13 +35,13 @@ void receiveData(int byteCount){
 }
 
 void sendData(){
-  //for (byte i = 0; i <= buflast/32; i++){
-  //  Wire.write(buffer + (i * 32));
-  //}
+  for (byte i = 0; i <= buflast/32; i++){
+    Wire.write(*(buffirst + (i * 32)));
+  }
   //for (byte i = 0; i <= buflast; ++i){
   //  Wire.write(buffer[i]);
   //}
-  Wire.write(buffer); 
+  //Wire.write(buffer); 
   buflast = 0;
 }
 
@@ -56,7 +57,7 @@ void setup()
 
   Canbus.setMode(MCP_NORMAL);   // Change to normal mode to allow messages to be transmitted
   delay(250);
-
+  buffirst = buffer;
   //println("Please choose a menu option.");
   //println("1.Speed");
   //println("2.RPM");
