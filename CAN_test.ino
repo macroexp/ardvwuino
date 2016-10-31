@@ -17,10 +17,10 @@ long unsigned int rxId;
 unsigned char len = 0;
 unsigned char rxBuf[8];
 
-void println(String msg){
+void println(const char* msg){
   unsigned int written = 0;
   if (buflast < BUFSIZE - 1){
-    written = snprintf(buffer + buflast, BUFSIZE - buflast, msg.c_str());
+    written = snprintf(buffer + buflast, BUFSIZE - buflast, msg);
     buflast = (written < 0) ? BUFSIZE : buflast + written;
   }
 }
