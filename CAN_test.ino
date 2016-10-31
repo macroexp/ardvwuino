@@ -4,7 +4,7 @@
 #include <Wire.h>
 #include <mcp_can.h>
 #include <SPI.h>
-#define BUFSIZE 450
+#define BUFSIZE 32*8
 #define SLAVE_ADDRESS 0x2A
 ///#define CAN0_INT 2                              // Set INT to pin 2
 MCP_CAN Canbus(6);     // Set CS to pin 4
@@ -34,7 +34,9 @@ void receiveData(int byteCount){
 }
 
 void sendData(){
-  Wire.write(buffer);
+  for (byte i = 0; i < buflast/32; i++){
+    Wire.write(buffer + (i * 32));
+  } 
   buflast = 0;
 }
 
@@ -64,10 +66,12 @@ void setup()
 //byte data[8] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};
 
 void loop() {
-  while(true){
-    println("Hello world\n");
-    delay(250);
-  }
+  println("Hello " + len++ + " World!\n");
+  delay(250); 
+  //while(true){
+    //println("Hello world\n");
+    //delay(250);
+  //}
 /*
   while (Serial.available()) {
     UserInput = Serial.read();

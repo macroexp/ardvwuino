@@ -37,7 +37,7 @@
 #endif
 
 // if print debug information
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0
 
 #define ENGINE_COOLANT_TEMP 0x05
 #define ENGINE_RPM          0x0C
