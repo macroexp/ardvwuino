@@ -78,9 +78,11 @@ char MCP_CAN::ecu_req(unsigned char pid,  char *buffer)
                         sprintf(buffer,"%d %% ",(int) engine_data);
                         break;
                 }
+                return CAN_OK;
             }
         }
     }
+    return CAN_FAIL;
 }
 
 /*********************************************************************************************************

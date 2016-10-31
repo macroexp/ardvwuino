@@ -18,7 +18,7 @@ unsigned char len = 0;
 unsigned char rxBuf[8];
 
 void println(String msg){
-  unsigned int written = 0;
+  int written = 0;
   if (buflast < BUFSIZE - 1){
     written = snprintf(buffer + buflast, BUFSIZE - buflast, msg.c_str());
     buflast = (written < 0) ? BUFSIZE : buflast + written;
@@ -34,7 +34,7 @@ void receiveData(int byteCount){
 }
 
 void sendData(){
-  for (byte i = 0; i < buflast/32; i++){
+  for (byte i = 0; i <= buflast/32; i++){
     Wire.write(buffer + (i * 32));
   } 
   buflast = 0;
