@@ -12,7 +12,7 @@ char UserInput;
 char number;
 int data;
 char buffer[BUFSIZE];
-unsigned int buflast = 0;
+size_t buflast = 0;
 long unsigned int rxId;
 unsigned int len = 0;
 unsigned char rxBuf[8];
