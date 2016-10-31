@@ -17,10 +17,10 @@ long unsigned int rxId;
 unsigned char len = 0;
 unsigned char rxBuf[8];
 
-void println(const char* msg){
+void println(String msg){
   unsigned int written = 0;
   if (buflast < BUFSIZE - 1){
-    written = snprintf(buffer + buflast, BUFSIZE - buflast, msg);
+    written = snprintf(buffer + buflast, BUFSIZE - buflast, msg.c_str());
     buflast = (written < 0) ? BUFSIZE : buflast + written;
   }
 }
@@ -47,8 +47,8 @@ void setup()
   Wire.onReceive(receiveData);
   Wire.onRequest(sendData);
   // Initialize MCP2515 running at 16MHz with a baudrate of 500kb/s and the masks and filters disabled.
-  if (Canbus.begin(MCP_ANY, CAN_500KBPS, MCP_8MHZ) == CAN_OK) println(F("MCP2515 Initialized Successfully!"));
-  else println(F("Error Initializing MCP2515..."));
+  if (Canbus.begin(MCP_ANY, CAN_500KBPS, MCP_8MHZ) == CAN_OK) println("MCP2515 Initialized Successfully!");
+  else println("Error Initializing MCP2515...");
 
   Canbus.setMode(MCP_NORMAL);   // Change to normal mode to allow messages to be transmitted
   delay(250);
