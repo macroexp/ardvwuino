@@ -13,7 +13,7 @@ char number;
 int data;
 char buffer[BUFSIZE];
 unsigned int buflast = 0;
-unsigned char *buffirst;
+char *buffirst;
 long unsigned int rxId;
 unsigned int len = 0;
 unsigned char rxBuf[8];
