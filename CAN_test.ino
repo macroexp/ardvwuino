@@ -14,7 +14,7 @@ int data;
 char buffer[BUFSIZE];
 unsigned int buflast = 0;
 long unsigned int rxId;
-unsigned char len = 0;
+unsigned int len = 0;
 unsigned char rxBuf[8];
 
 void println(String msg){
@@ -34,9 +34,10 @@ void receiveData(int byteCount){
 }
 
 void sendData(){
-  for (byte i = 0; i <= buflast/32; i++){
-    Wire.write(buffer + (i * 32));
-  } 
+  //for (byte i = 0; i <= buflast/32; i++){
+  //  Wire.write(buffer + (i * 32));
+  //}
+  Wire.send(buffer, buflast); 
   buflast = 0;
 }
 
