@@ -47,8 +47,8 @@ void setup()
   Wire.onReceive(receiveData);
   Wire.onRequest(sendData);
   // Initialize MCP2515 running at 16MHz with a baudrate of 500kb/s and the masks and filters disabled.
-  if (Canbus.begin(MCP_ANY, CAN_500KBPS, MCP_8MHZ) == CAN_OK) println("MCP2515 Initialized Successfully!");
-  else println("Error Initializing MCP2515...");
+  if (Canbus.begin(MCP_ANY, CAN_500KBPS, MCP_8MHZ) == CAN_OK) println(F("MCP2515 Initialized Successfully!"));
+  else println(F("Error Initializing MCP2515..."));
 
   Canbus.setMode(MCP_NORMAL);   // Change to normal mode to allow messages to be transmitted
   delay(250);
@@ -66,7 +66,10 @@ void setup()
 //byte data[8] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};
 
 void loop() {
-  println("Hello " + len++ + " World!\n");
+  String s = "Hello ";
+  s += len++;
+  s += " World\n";
+  println(s.c_str());
   delay(250); 
   //while(true){
     //println("Hello world\n");
