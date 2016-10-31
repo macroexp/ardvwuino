@@ -37,7 +37,7 @@ void sendData(){
   //for (byte i = 0; i <= buflast/32; i++){
   //  Wire.write(buffer + (i * 32));
   //}
-  Wire.send(buffer, buflast); 
+  Wire.write(buffer, buflast); 
   buflast = 0;
 }
 
