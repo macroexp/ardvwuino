@@ -17,10 +17,10 @@ long unsigned int rxId;
 unsigned char len = 0;
 unsigned char rxBuf[8];
 
-void println(char* msg){
+void println(String msg){
   unsigned int written = 0;
   if (buflast < BUFSIZE - 1){
-    written = snprintf(buffer + buflast, BUFSIZE - buflast, msg);
+    written = snprintf(buffer + buflast, BUFSIZE - buflast, msg.c_str());
     buflast = (written < 0) ? BUFSIZE : buflast + written;
   }
 }
@@ -69,7 +69,7 @@ void loop() {
   String s = "Hello ";
   s += len++;
   s += " World\n";
-  println(s.c_str());
+  println(s);
   delay(250); 
   //while(true){
     //println("Hello world\n");
