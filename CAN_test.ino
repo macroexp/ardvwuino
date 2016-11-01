@@ -19,10 +19,11 @@ unsigned int len = 0;
 unsigned char rxBuf[8];
 
 void println(String msg){
-  int written = 0;
-  if (buflast < BUFSIZE - 1){
-    written = snprintf(buffer + buflast, BUFSIZE - buflast, msg.c_str());
-    buflast = (written < 0) ? BUFSIZE : buflast + written;
+  if (buflast < BUFSIZE - 2){
+    snprintf(buffer + buflast, BUFSIZE - buflast - 1, msg.c_str());
+    buflast += msg.length();
+    if (buflast > BUFSIZE - 1)
+      buflast = BUFSIZE - 1; // partial write
   }
 }
 
