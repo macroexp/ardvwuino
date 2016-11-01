@@ -49,7 +49,7 @@ void sendData(){
     buflast = 0;
   }
   else {
-    Wire.write(-1);
+    Wire.write(0);
   }
 }
 
