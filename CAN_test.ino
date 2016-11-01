@@ -36,7 +36,7 @@ void receiveData(int byteCount){
 
 void sendData(){
   for (byte i = 0; i <= buflast/32; i++){
-    Wire.write(*(buffirst + (i * 32)));
+    Wire.write(buffirst + (i * 32));
   }
   //for (byte i = 0; i <= buflast; ++i){
   //  Wire.write(buffer[i]);
