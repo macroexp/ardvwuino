@@ -38,14 +38,16 @@ void receiveData(int byteCount){
 }
 
 void sendData(){
-  for (byte i = 0; i <= buflast/32; i++){
-    Wire.write(buffer + (i * 32));
+  if (buflast > 0){
+    for (byte i = 0; i <= buflast/32; i++){
+      Wire.write(buffer + (i * 32));
+    }
+    //for (byte i = 0; i <= buflast; ++i){
+    //  Wire.write(buffer[i]);
+    //}
+    //Wire.write(buffer); 
+    buflast = 0;
   }
-  //for (byte i = 0; i <= buflast; ++i){
-  //  Wire.write(buffer[i]);
-  //}
-  //Wire.write(buffer); 
-  buflast = 0;
 }
 
 void setup()
