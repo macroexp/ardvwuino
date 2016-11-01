@@ -48,6 +48,9 @@ void sendData(){
     //Wire.write(buffer); 
     buflast = 0;
   }
+  else {
+    Wire.write(-1);
+  }
 }
 
 void setup()
