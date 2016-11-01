@@ -18,13 +18,17 @@ long unsigned int rxId;
 unsigned int len = 0;
 unsigned char rxBuf[8];
 
-void println(String msg){
+
+void println(const char* msg){
   if (buflast < BUFSIZE - 2){
-    snprintf(buffer + buflast, BUFSIZE - buflast - 1, msg.c_str());
-    buflast += msg.length();
+    int len = snprintf(buffer + buflast, BUFSIZE - buflast - 1, msg);
+    buflast += len;
     if (buflast > BUFSIZE - 1)
       buflast = BUFSIZE - 1; // partial write
   }
+}
+void println(String msg){
+    println(msg.c_str());
 }
 
 void receiveData(int byteCount){
@@ -37,7 +41,7 @@ void receiveData(int byteCount){
 
 void sendData(){
   for (byte i = 0; i <= buflast/32; i++){
-    Wire.write(buffirst + (i * 32));
+    Wire.write(buffer + (i * 32));
   }
   //for (byte i = 0; i <= buflast; ++i){
   //  Wire.write(buffer[i]);
@@ -58,7 +62,6 @@ void setup()
 
   Canbus.setMode(MCP_NORMAL);   // Change to normal mode to allow messages to be transmitted
   delay(250);
-  buffirst = buffer;
   //println("Please choose a menu option.");
   //println("1.Speed");
   //println("2.RPM");
