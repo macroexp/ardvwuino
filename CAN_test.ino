@@ -19,7 +19,7 @@ unsigned char rxBuf[8];
 enum ReadMode { General, Debug };
 
 ReadMode readMode;
-Log generalLog();
+Log generalLog;
 
 
 void sendData(){
@@ -33,6 +33,14 @@ void sendData(){
   }
 }
 
+void receiveData(int byteCount){
+  int i = 0;
+  while(Wire.available()) {
+    number = Wire.read();
+    if (i++ == 0) // mode byte
+      readMode = static_cast<ReadMode>(number);
+  }
+}
 
 void setup()
 {
@@ -41,8 +49,8 @@ void setup()
   Wire.onReceive(receiveData);
   Wire.onRequest(sendData);
   // Initialize MCP2515 running at 16MHz with a baudrate of 500kb/s and the masks and filters disabled.
-  if (Canbus.begin(MCP_ANY, CAN_500KBPS, MCP_8MHZ) == CAN_OK) println("MCP2515 Initialized Successfully!");
-  else println("Error Initializing MCP2515...");
+  if (Canbus.begin(MCP_ANY, CAN_500KBPS, MCP_8MHZ) == CAN_OK) generalLog.println("MCP2515 Initialized Successfully!");
+  else generalLog.println("Error Initializing MCP2515...");
 
   Canbus.setMode(MCP_NORMAL);   // Change to normal mode to allow messages to be transmitted
   delay(250);
