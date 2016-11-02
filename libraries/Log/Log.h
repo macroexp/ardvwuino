@@ -3,9 +3,10 @@
 class Log {
 	private:
 		char buffer[BUFSIZE];
-		unsigned int buflast = 0;
+		unsigned int buflast;
 	public:
+		Log();
 		void println(const char* msg);
 		void println(String msg);
 		void sendLog();
-}
+};

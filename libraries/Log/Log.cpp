@@ -1,5 +1,9 @@
 #include "Log.h"
 
+Log::Log(){
+  buflast = 0;
+}
+
 void Log::println(const char* msg){
   if (buflast < BUFSIZE - 2){
     int len = snprintf(buffer + buflast, BUFSIZE - buflast - 1, msg);
