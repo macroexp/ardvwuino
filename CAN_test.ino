@@ -4,6 +4,8 @@
 #include <Wire.h>
 #include <mcp_can.h>
 #include <SPI.h>
+#include <Log.h>
+
 #define BUFSIZE 32*8
 #define SLAVE_ADDRESS 0x2A
 ///#define CAN0_INT 2                              // Set INT to pin 2
@@ -11,9 +13,6 @@ MCP_CAN Canbus(6);     // Set CS to pin 4
 char UserInput;
 char number;
 int data;
-char buffer[BUFSIZE];
-unsigned int buflast = 0;
-char *buffirst;
 long unsigned int rxId;
 unsigned int len = 0;
 unsigned char rxBuf[8];
@@ -21,43 +20,20 @@ unsigned char rxBuf[8];
 enum ReadMode { General, Debug };
 
 ReadMode readMode;
+Log generalLog();
 
-void println(const char* msg){
-  if (buflast < BUFSIZE - 2){
-    int len = snprintf(buffer + buflast, BUFSIZE - buflast - 1, msg);
-    buflast += len;
-    if (buflast > BUFSIZE - 1)
-      buflast = BUFSIZE - 1; // partial write
-  }
-}
-void println(String msg){
-    println(msg.c_str());
-}
-
-void receiveData(int byteCount){
-  int i = 0;
-  while(Wire.available()) {
-    number = Wire.read();
-    if (i++ == 0) // mode byte
-      readMode = static_cast<ReadMode>(number);
-  }
-}
 
 void sendData(){
-  if (buflast > 0){
-    for (byte i = 0; i <= buflast/32; i++){
-      Wire.write(buffer + (i * 32));
-    }
-    //for (byte i = 0; i <= buflast; ++i){
-    //  Wire.write(buffer[i]);
-    //}
-    //Wire.write(buffer); 
-    buflast = 0;
-  }
-  else {
-    Wire.write(0);
+  switch(readMode){
+    case General:
+      generalLog.sendLog();
+      break;
+    case Debug:
+      //sendDebug();
+      break;
   }
 }
+
 
 void setup()
 {
@@ -87,7 +63,7 @@ void loop() {
   String s = "Hello ";
   s += len++;
   s += " World\n";
-  println(s);
+  generalLog.println(s);
   delay(250); 
   //while(true){
     //println("Hello world\n");
