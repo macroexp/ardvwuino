@@ -1,4 +1,6 @@
 #include "Log.h"
+#include <Arduino.h>
+//#include <stdio.h>
 
 Log::Log(){
   buflast = 0;
