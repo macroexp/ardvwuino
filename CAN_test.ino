@@ -18,6 +18,9 @@ long unsigned int rxId;
 unsigned int len = 0;
 unsigned char rxBuf[8];
 
+enum ReadMode { General, Debug };
+
+ReadMode readMode;
 
 void println(const char* msg){
   if (buflast < BUFSIZE - 2){
@@ -32,8 +35,11 @@ void println(String msg){
 }
 
 void receiveData(int byteCount){
+  int i = 0;
   while(Wire.available()) {
     number = Wire.read();
+    if (i++ == 0) // mode byte
+      readMode = static_cast<ReadMode>(number);
   }
 }
 
