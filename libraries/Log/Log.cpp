@@ -1,6 +1,6 @@
-#include "Log.h"
 #include <Arduino.h>
-//#include <stdio.h>
+#include <Wire.h>
+#include "Log.h"
 
 Log::Log(){
   buflast = 0;
