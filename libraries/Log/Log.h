@@ -1,4 +1,4 @@
-#define BUFSIZE 32*8;
+#define BUFSIZE 32*8
 
 class Log {
 	private:

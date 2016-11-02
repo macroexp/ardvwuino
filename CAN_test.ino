@@ -6,7 +6,6 @@
 #include <SPI.h>
 #include <Log.h>
 
-#define BUFSIZE 32*8
 #define SLAVE_ADDRESS 0x2A
 ///#define CAN0_INT 2                              // Set INT to pin 2
 MCP_CAN Canbus(6);     // Set CS to pin 4
