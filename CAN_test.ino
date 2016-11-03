@@ -4,13 +4,12 @@
 #include <Wire.h>
 #include <mcp_can.h>
 #include <SPI.h>
-#include <Log.h>
 #include <IWire.h>
 #include <WireWrapper.h>
+#include <Log.h>
+
 
 #define SLAVE_ADDRESS 0x2A
-#define ARDUINO
-
 
 
 ///#define CAN0_INT 2                              // Set INT to pin 2
