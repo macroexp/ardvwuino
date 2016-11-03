@@ -5,8 +5,14 @@
 #include <mcp_can.h>
 #include <SPI.h>
 #include <Log.h>
+#include <IWire.h>
+#include <WireWrapper.h>
 
 #define SLAVE_ADDRESS 0x2A
+#define ARDUINO
+
+
+
 ///#define CAN0_INT 2                              // Set INT to pin 2
 MCP_CAN Canbus(6);     // Set CS to pin 4
 char UserInput;
@@ -19,7 +25,8 @@ unsigned char rxBuf[8];
 enum ReadMode { General, Debug };
 
 ReadMode readMode;
-Log generalLog;
+WireWrapper wrapper;
+Log generalLog(&wrapper);
 
 
 void sendData(){
