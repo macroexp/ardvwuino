@@ -1,9 +1,12 @@
 class WireWrapper : public IWire {
 	public:
-		unsigned long write(const char *str){
+		size_t long write(const char *str){
 			return Wire.write(str);
 		}
-		unsigned long write(int value){
+		size_t long write(int value){
 			return Wire.write(value);
+		}
+		size_t write(const char *buffer, size_t size){
+			return Wire.write(buffer, size);
 		}
 };

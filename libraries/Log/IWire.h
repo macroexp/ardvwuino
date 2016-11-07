@@ -3,8 +3,9 @@
 
 class IWire {
 	public:
-		virtual unsigned long write(const char *str) = 0;
-		virtual unsigned long write(int value) = 0;
+		virtual size_t write(const char *str) = 0;
+		virtual size_t write(int value) = 0;
+		virtual size_t write(const char *buffer, size_t size) = 0;
 };
 
 #endif
