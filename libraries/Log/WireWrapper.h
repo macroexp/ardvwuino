@@ -7,6 +7,6 @@ class WireWrapper : public IWire {
 			return Wire.write(value);
 		}
 		size_t write(const char *buffer, size_t size){
-			return Wire.write(buffer, size);
+			return Wire.write((const uint8_t *)buffer, size);
 		}
 };
