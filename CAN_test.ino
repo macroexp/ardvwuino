@@ -1,6 +1,9 @@
 // CAN Send Example
 // hybridized from a lot of stuff
 
+#define SLAVE_ADDRESS 0x2A
+#define TWI_FREQ 400000L
+
 #include <Wire.h>
 #include <mcp_can.h>
 #include <SPI.h>
@@ -9,7 +12,6 @@
 #include <Log.h>
 
 
-#define SLAVE_ADDRESS 0x2A
 
 
 ///#define CAN0_INT 2                              // Set INT to pin 2
