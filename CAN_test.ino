@@ -77,7 +77,7 @@ void loop() {
   s += len++;
   s += " World\n";
   generalLog.println(s);
-  delay(250); 
+  delay(25); 
   //while(true){
     //println("Hello world\n");
     //delay(250);
