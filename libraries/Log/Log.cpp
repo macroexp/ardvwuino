@@ -6,6 +6,10 @@
 #include "IWire.h"
 #include "Log.h"
 
+#ifndef ARDUINO
+#define min(a,b) ((a)<(b)?(a):(b))
+#endif
+
 Log::Log(IWire* _output){
   head = tail = 0;
   output = _output;
@@ -62,6 +66,6 @@ void Log::sendLog(){
 //  printf("Head: %d, tail: %d, buffer:\n%s\nend\n", head, tail, buffer);
 //}
 
-byte Log::min(byte a, byte b){
-  return (a < b) ? a : b;
-}
+//byte Log::min(byte a, byte b){
+//  return (a < b) ? a : b;
+//}

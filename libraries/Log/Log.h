@@ -22,7 +22,7 @@ class Log {
 #endif
 		void sendLog();
 	private:
-		byte min(byte a, byte b);
+		//byte min(byte a, byte b);
 };
 
 
