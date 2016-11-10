@@ -3,7 +3,6 @@
 #endif
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
 #include "IWire.h"
 #include "Log.h"
 
@@ -14,21 +13,22 @@ Log::Log(IWire* _output){
 
 void Log::println(const char* msg){
   unsigned int messageLength = strlen(msg);
-  if (messageLength > BUFSIZE){
+  if (messageLength > BUFSIZE){ // whole buffer
     snprintf(buffer, BUFSIZE - 1, "%s", msg);
+    head = 0;
     tail = BUFSIZE;
   }
   else if (messageLength >= BUFSIZE - tail){ // split and wrap
     unsigned int room = BUFSIZE - tail - 1;
     snprintf(buffer + tail, room, "%s", msg); // print as much on the end of the buffer as we can
 
-    const char* start = msg + (messageLength - room);
-    tail = snprintf(buffer, tail, "%s", start); // don't overwrite the start? i dunno
+    const char* start = msg + room - 1;
+    tail = snprintf(buffer, tail, "%s", start);
   }
   else {
     tail += snprintf(buffer + tail, BUFSIZE - tail - 1, "%s", msg);
   }
-  if (tail < head) head = tail + 1;
+  //if (tail < head) head = tail + 1;
 }
 
 #ifdef ARDUINO
@@ -45,7 +45,7 @@ void Log::sendLog(){
       output->write(buffer + head, amt);
       head += amt;
     }
-    else {
+    else { // wrap
       byte amt = BUFSIZE - 1 - head;
       output->write(buffer + head, amt);
       amt = min(tail, 32-amt);
@@ -57,6 +57,10 @@ void Log::sendLog(){
     output->write(0);
   }
 }
+
+//void Log::diags(){
+//  printf("Head: %d, tail: %d, buffer:\n%s\nend\n", head, tail, buffer);
+//}
 
 byte Log::min(byte a, byte b){
   return (a < b) ? a : b;

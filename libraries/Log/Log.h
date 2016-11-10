@@ -15,6 +15,7 @@ class Log {
 	public:
 		Log(IWire* output);
 		void println(const char* msg);
+		//void diags();
 		//void print(const char* msg);
 #ifdef ARDUINO
 		void println(String msg);
